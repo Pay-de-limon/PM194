@@ -3,3 +3,4 @@ const saludoPersonalizado = (nombre, edad) => {
 };
 
 console.log(saludoPersonalizado("Perla", 21));
+    
