@@ -5,3 +5,15 @@ const personas = [
 ];
 
 
+const buscarPersona = personas.find(persona => persona.nombre === "Luis");
+console.log(buscarPersona);
+
+
+personas.forEach(persona => {
+    console.log (persona.nombre + " tiene " + persona.edad + " años");
+
+});
+
+
+const totalEdades = personas.reduce((suma, persona) => suma + persona.edad, 0);
+console.log ("La suma total de las edades es: " + totalEdades);
