@@ -7,8 +7,12 @@ function simularPeticionAPI(){
 }
 
 async function obtenerDatos(params) {
-    //usa await para esperar la promesa de simularPeticion
-    //imprime el resultado
+    try {
+        const resultado = await simularPeticionAPI();
+        console.log(resultado);
+    } catch (error){
+        console.error("Error al obtener datos:", error);
+    }
 }
 
-//usa la funcion async
+obtenerDatos();
