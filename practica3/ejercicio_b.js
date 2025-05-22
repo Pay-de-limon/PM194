@@ -17,3 +17,6 @@ verificarUsuario("admin")
 verificarUsuario("Ivan")
     .then(res => console.log(res))
     .catch(err => console.error(err)); // Acceso denegado
+
+
+    
