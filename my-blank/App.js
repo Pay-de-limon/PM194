@@ -1,46 +1,46 @@
-/* zona 1: Importaciones */
-
+// Zona 1: Importaciones
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 
-const Texto = () => {
-  const [contenido, setContenido] = useState ('Hola mundo RNative');
+const Texto = ({style}) => {
+  const [ contenido, setContenido] = useState('Hola Mundo RNative');
   const actualizarTexto = () => {setContenido('Estado actualizado del Text')};
-  return(
-    <Text onPress={actualizarTexto}>{contenido} </Text>
+  return (
+    <Text  style={[styles.text, style]} onPress={actualizarTexto}> {contenido}</Text>
   )
-  };
+};
 
-  const Boton = ()=>{
-    const [contenido, setContenido] = useState ('trabajaaa');
-    const actualizarBoton = () => {setContenido('deja de trabajarrr')}
-    return (
-      <Button title={contenido} onPress={actualizarBoton}>{contenido}</Button>
-    )
-  }
-/* zona 2: main(ejecución) */
 
+// Zona 2: Main - Ejecucion
+//Siempre debe estar dentro de un view
 export default function App() {
   return (
-
     <View style={styles.container}>
-      
-      <Boton></Boton>
-      <Texto></Texto>
-      <Texto></Texto>
-      <Texto></Texto>
+      <Texto style={styles.red}></Texto>
+      <Texto style={styles.blue}></Texto>
+      <Texto style={styles.green}></Texto>
       <StatusBar style="auto" />
     </View>
   );
 }
 
-/* zona 3: Estética del screen */
+// Zona 3
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
+    alignItems: 'baseline',
     justifyContent: 'center',
+    flexDirection: 'row'
+    
   },
+  text:{
+    color: 'white',
+    fontSize: 27,
+    
+  },
+  red: {backgroundColor: 'red'},
+  green: {backgroundColor: 'green'},
+  blue: {backgroundColor: 'blue'},
 });
