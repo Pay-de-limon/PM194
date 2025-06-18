@@ -1,6 +1,6 @@
 // Zona 1: Importaciones
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button,ScrollView } from 'react-native';
 import React, { useState } from 'react';
 
 const Texto = ({style}) => {
@@ -16,12 +16,27 @@ const Texto = ({style}) => {
 //Siempre debe estar dentro de un view
 export default function App() {
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
+      <Texto style={styles.red}></Texto>
+      <Texto style={styles.blue}></Texto>
+      <Texto style={styles.green}></Texto>
+      <Texto style={styles.red}></Texto>
+      <Texto style={styles.blue}></Texto>
+      <Texto style={styles.green}></Texto>
+      <Texto style={styles.red}></Texto>
+      <Texto style={styles.blue}></Texto>
+      <Texto style={styles.green}></Texto>
+      <Texto style={styles.red}></Texto>
+      <Texto style={styles.blue}></Texto>
+      <Texto style={styles.green}></Texto>
+      <Texto style={styles.red}></Texto>
+      <Texto style={styles.blue}></Texto>
+      <Texto style={styles.green}></Texto>
       <Texto style={styles.red}></Texto>
       <Texto style={styles.blue}></Texto>
       <Texto style={styles.green}></Texto>
       <StatusBar style="auto" />
-    </View>
+    </ScrollView>
   );
 }
 
