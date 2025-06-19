@@ -1,32 +1,36 @@
 // Zona 1: Importaciones
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button,ScrollView } from 'react-native';
-import React, { useState } from 'react';
+import { StyleSheet, Text, View, Button, Switch } from 'react-native';
+import React, { use, useState } from 'react';
 
-const Texto = ({style}) => {
-  const [ contenido, setContenido] = useState('Hola Mundo RNative');
-  const actualizarTexto = () => {setContenido('Hola mundo como estas?')};
+
+const Interruptor = () => {
+  const [isEnabled, setIsEnable] = useState (false);
+  const toggleSwitch = () => setIsEnable(previousState => !previousState);
+  
   return (
-    <view style={{margin: 10}}>
-    <Text style={[styles.text, style]}>{contenido}</Text>
-    <Button title ='actualizartexto' on onPress={actualizarTexto} color = "orange"/>
-    </view>
+    <View style={styles.container}>
+   
+      <Text>
+        {isEnabled ? 'Activado': 'Desactivado'}
+      </Text>
+      <Switch 
+        trackColor={{false: '#767577', true: '#81b0ff'}}
+        thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+        onValueChange={toggleSwitch}
+        value = {isEnabled}
+      />
+    </View>
+
   )
-};
-
-
-
+}
 // Zona 2: Main - Ejecucion
 //Siempre debe estar dentro de un view
 export default function App() {
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Texto style={styles.red}></Texto>
-      <Texto style={styles.blue}></Texto>
-      <Texto style={styles.green}></Texto>
-      
-      <StatusBar style="auto" />
-    </ScrollView>
+    <View style = {styles.container}>
+      <Interruptor />
+    </View>
   );
 }
 
