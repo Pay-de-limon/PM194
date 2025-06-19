@@ -5,11 +5,15 @@ import React, { useState } from 'react';
 
 const Texto = ({style}) => {
   const [ contenido, setContenido] = useState('Hola Mundo RNative');
-  const actualizarTexto = () => {setContenido('Estado actualizado del Text')};
+  const actualizarTexto = () => {setContenido('Hola mundo como estas?')};
   return (
-    <Text  style={[styles.text, style]} onPress={actualizarTexto}> {contenido}</Text>
+    <view style={{margin: 10}}>
+    <Text style={[styles.text, style]}>{contenido}</Text>
+    <Button title ='actualizartexto' on onPress={actualizarTexto} color = "orange"/>
+    </view>
   )
 };
+
 
 
 // Zona 2: Main - Ejecucion
@@ -20,21 +24,7 @@ export default function App() {
       <Texto style={styles.red}></Texto>
       <Texto style={styles.blue}></Texto>
       <Texto style={styles.green}></Texto>
-      <Texto style={styles.red}></Texto>
-      <Texto style={styles.blue}></Texto>
-      <Texto style={styles.green}></Texto>
-      <Texto style={styles.red}></Texto>
-      <Texto style={styles.blue}></Texto>
-      <Texto style={styles.green}></Texto>
-      <Texto style={styles.red}></Texto>
-      <Texto style={styles.blue}></Texto>
-      <Texto style={styles.green}></Texto>
-      <Texto style={styles.red}></Texto>
-      <Texto style={styles.blue}></Texto>
-      <Texto style={styles.green}></Texto>
-      <Texto style={styles.red}></Texto>
-      <Texto style={styles.blue}></Texto>
-      <Texto style={styles.green}></Texto>
+      
       <StatusBar style="auto" />
     </ScrollView>
   );
