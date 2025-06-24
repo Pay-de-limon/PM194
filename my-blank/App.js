@@ -1,57 +1,58 @@
 import * as SplashScreen from 'expo-splash-screen';
+import { ImageBackground } from 'react-native-web';
 import React,{useEffect, useState}from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App(){
-  const [appReady, setAppready] = useState(flase);
+  const [appReady, setAppReady] = useState(false);
   useEffect(() =>{
     setTimeout(async () => {
-      setAppready(true);
+      setAppReady(true);
       await SplashScreen.hideAsync();
     }, 2000);
   }, []);
+
+  return(
+    <ImageBackground
+    source = {require('./assets/nubes.jpeg')}
+    style = {styles.background}
+    resizeMode = "cover"
+    >
+      <View style = {styles.container}>
+        <Text style = {styles.title}>Bienvenido a mi App</Text>
+        <Text style = {styles.subtitle}>
+          {appReady ? 'Carga completa': 'Cargando....'}
+        </Text>
+      </View>
+    
+    </ImageBackground>
+  );
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 4. Estilos simples
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
   container: {
-    flexGrow: 1,
-    backgroundColor: '#f0f0f0',
-    alignItems: 'center',
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'center',
-    padding: 20,
+    alignItems: 'center',
   },
   title: {
-    fontSize: 17,
-    color: '#333',
-    marginBottom: 6,
-    alignSelf: 'flex-start',
+    color: 'white',
+    fontSize: 32,
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
-  input: {
-    height: 44,
-    borderColor: '#bbb',
-    borderWidth: 1,
-    paddingHorizontal: 10,
-    marginBottom: 16,
-    borderRadius: 8,
-    backgroundColor: '#fff',
-    width: '100%',
-    fontSize: 15,
-  },
+  subtitle: {
+    color: 'white',
+    fontSize: 18,
+  }
 });
