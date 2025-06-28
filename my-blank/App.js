@@ -1,58 +1,42 @@
-import * as SplashScreen from 'expo-splash-screen';
-import { ImageBackground } from 'react-native-web';
-import React,{useEffect, useState}from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, ActivityIndicator, Button, StyleSheet } from 'react-native';
 
-SplashScreen.preventAutoHideAsync();
+export default function App() {
+  const [loading, setLoading] = useState(false);
+  const [mensaje, setMensaje] = useState('');
 
-export default function App(){
-  const [appReady, setAppReady] = useState(false);
-  useEffect(() =>{
-    setTimeout(async () => {
-      setAppReady(true);
-      await SplashScreen.hideAsync();
-    }, 2000);
-  }, []);
+  const simularCarga = () => {
+    setLoading(true);
+    setMensaje('');
+    setTimeout(() => {
+      setLoading(false);
+      setMensaje('¡Carga completada con éxito!');
+    }, 3000); // Simula 3 segundos de carga
+  };
 
-  return(
-    <ImageBackground
-    source = {require('./assets/nubes.jpeg')}
-    style = {styles.background}
-    resizeMode = "cover"
-    >
-      <View style = {styles.container}>
-        <Text style = {styles.title}>Bienvenido a mi App</Text>
-        <Text style = {styles.subtitle}>
-          {appReady ? 'Carga completa': 'Cargando....'}
-        </Text>
-      </View>
-    
-    </ImageBackground>
+  return (
+    <View style={styles.container}>
+      <Text style={styles.titulo}>CARGA</Text>
+
+      {loading ? (
+        <>
+          <ActivityIndicator size="small" color="#2D9CDB" />
+          <Text style={styles.texto}>Cargando...</Text>
+        </>
+      ) : (
+        <>
+          <Button title="Iniciar carga" onPress={simularCarga} />
+          {mensaje !== '' && <Text style={styles.exito}>{mensaje}</Text>}
+        </>
+      )}
+    </View>
   );
 }
 
-
-// 4. Estilos simples
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-  },
-  container: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    color: 'white',
-    fontSize: 32,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  subtitle: {
-    color: 'white',
-    fontSize: 18,
-  }
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  titulo: { fontSize: 22, marginBottom: 20 },
+  texto: { marginTop: 15, color: 'gray' },
+  exito: { marginTop: 20, color: 'green', fontWeight: 'bold' },
 });
+  
