@@ -4,28 +4,15 @@
     "slug": "my-blank",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/nubes.jpeg",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/splash-nubes.jpeg",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "ios": {
       "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-nubes.jpeg",
-        "backgroundColor": "#ffffff"
-      },
       "edgeToEdgeEnabled": true
     },
-    "web": {
-      "favicon": "./assets/nubes.jpeg"
-    },
-    "plugins":
-    "expo-splash-screen"
+    "web": {},
+    "plugins": ["expo-splash-screen"]
   }
 }
