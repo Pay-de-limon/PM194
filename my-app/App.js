@@ -1,128 +1,167 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
+  Button,
+  Modal,
   TextInput,
-  Alert,
-  ImageBackground,
-  Switch,
-  ScrollView,
-  KeyboardAvoidingView,
-  Platform,
   TouchableOpacity,
-} from 'react-native';
+} from "react-native";
+
+
+
+
+const ModalPersonalizado = ({ visible, onClose, children }) => (
+  <Modal
+    visible={visible}
+    transparent={true}
+    animationType="fade"
+    onRequestClose={onClose}
+  >
+    <View style={styles.modalBackground}>
+      <View style={styles.modalBox}>
+        {children}
+        <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+          <Text style={styles.buttonText}>CERRAR</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  </Modal>
+);
+
+
+
+
+
+
 
 export default function App() {
-  const [name, setName] = useState('');
-  const [mail, setMail] = useState('');
-  const [tyc, setTyc] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const [mostrarTexto, setMostrarTexto] = useState("");
 
-  const registro = () => {
-    if (!name.trim() || !mail.trim()) {
-      Alert.alert('Error', 'Por favor, completa todos los campos.');
-      return;
-    }
-    if (!tyc) {
-      Alert.alert('Error', 'Debes aceptar los términos y condiciones.');
-      return;
-    }
-    Alert.alert('Registro exitoso', `Name: ${name}\nMail: ${mail}`);
+  const handleMostrar = () => {
+    setMostrarTexto(inputValue);
   };
 
   return (
-    <ImageBackground
-      source={require('./assets/nubes.jpeg')}
-      style={styles.background}
-      resizeMode="cover"
-    >
-      
-      
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
-          <View style={styles.card}>
-            <Text style={styles.title}>Registro de Usuario</Text>
+    <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.openButton}
+        onPress={() => setModalVisible(true)}
+      >
+        <Text style={styles.buttonText}>MOSTRAR MODAL</Text>
+      </TouchableOpacity>
 
-            <TextInput
-              style={styles.input}
-              placeholder="Nombre completo"
-              placeholderTextColor="#ccc"
-              onChangeText={setName}
-              value={name}
-            />
-
-            <TextInput
-              style={styles.input}
-              placeholder="Correo electrónico"
-              placeholderTextColor="#ccc"
-              keyboardType="email"
-              onChangeText={setMail}
-              value={mail}
-            />
-
-            <View style={styles.switchContainer}>
-              <Text style={styles.switchText}>Aceptar términos y condiciones</Text>
-              <Switch value={tyc} onValueChange={setTyc} />
-            </View>
-
-            <TouchableOpacity onPress={registro} style={styles.button}>
-              <Text style={styles.buttonText}>Registrarse</Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-      
-      <StatusBar style="light" />
-    </ImageBackground>
+      <ModalPersonalizado
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+      >
+        <Text style={styles.modalText}>¡Este es un modal estructurado!</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Escribe algo aquí..."
+          placeholderTextColor="#aaa"
+          value={inputValue}
+          onChangeText={setInputValue}
+        />
+        <TouchableOpacity style={styles.showButton} onPress={handleMostrar}>
+          <Text style={styles.buttonText}>MOSTRAR</Text>
+        </TouchableOpacity>
+        {mostrarTexto !== "" && (
+          <Text style={styles.resultado}>
+            Lo escrito:{" "}
+            <Text style={styles.resultadoTexto}>{mostrarTexto}</Text>
+          </Text>
+        )}
+      </ModalPersonalizado>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  background: {
+  container: {
     flex: 1,
+    backgroundColor: "#f4f4f4",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  scrollContainer: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    padding: 20,
+  openButton: {
+    backgroundColor: "#2196F3",
+    paddingVertical: 14,
+    paddingHorizontal: 32,
+    borderRadius: 8,
+    marginBottom: 10,
+    elevation: 2,
   },
-  card: {
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    padding: 20,
-    borderRadius: 15,
+  modalBackground: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: "center",
+    alignItems: "center",
   },
-  title: {
-    color: 'white',
+  modalBox: {
+    backgroundColor: "white",
+    padding: 28,
+    borderRadius: 18,
+    width: 320,
+    alignItems: "center",
+    elevation: 8,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+  },
+  modalText: {
     fontSize: 22,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 18,
+    textAlign: "center",
+    fontWeight: "bold",
+    color: "#222",
   },
   input: {
-    backgroundColor: '#222',
-    color: 'white',
+    width: "100%",
+    borderColor: "#2196F3",
+    borderWidth: 1.5,
     borderRadius: 10,
     padding: 10,
-    marginBottom: 15,
+    marginBottom: 16,
+    fontSize: 17,
+    backgroundColor: "#f9f9f9",
+    color: "#222",
   },
-  switchContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-  },
-  switchText: {
-    color: 'white',
-    fontSize: 14,
-    alignSelf: 'center',
-  },
-  button: {
-    backgroundColor: '#0af',
+  showButton: {
+    backgroundColor: "#4CAF50",
     paddingVertical: 12,
-    borderRadius: 10,
+    paddingHorizontal: 30,
+    borderRadius: 8,
+    marginBottom: 14,
+    elevation: 2,
+  },
+  closeButton: {
+    backgroundColor: "#FF5252",
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    borderRadius: 8,
+    marginTop: 8,
+    elevation: 2,
   },
   buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
+    color: "white",
+    fontWeight: "bold",
     fontSize: 16,
+    textAlign: "center",
+    letterSpacing: 1,
+  },
+  resultado: {
+    marginTop: 10,
+    fontSize: 17,
+    color: "#333",
+    textAlign: "center",
+  },
+  resultadoTexto: {
+    color: "#2196F3",
+    fontWeight: "bold",
   },
 });
